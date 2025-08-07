@@ -10,10 +10,13 @@ def main() -> None:
         players = json.load(file)
 
     for nickname, params in players.items():
-        race, _ = Race.objects.get_or_create(
-            name=params["race"]["name"],
-            description=params["race"]["description"]
-        )
+
+        race = None
+        if params.get("race"):
+            race, _ = Race.objects.get_or_create(
+                name=params["race"].get("name"),
+                description=params["race"].get("description")
+            )
 
         for skill in params["race"].get("skills", []):
             Skill.objects.get_or_create(
