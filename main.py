@@ -22,7 +22,8 @@ def main() -> None:
                 race=race
             )
 
-        if guild := params.get("guild", None):
+        guild = None
+        if params.get("guild"):
             guild, _ = Guild.objects.get_or_create(
                 name=params["guild"].get("name"),
                 description=params["guild"].get("description")
